@@ -1,2 +1,1 @@
-# work-day-scheduler
-Work Day Scheduler. Module 5 challenge 
+# Work Day Scheduler Starter Code

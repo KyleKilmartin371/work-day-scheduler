@@ -1,3 +1,9 @@
+//todays date and time
+var currentDay = moment().format("dddd MM. YY");
+var currentDayEl = $("#currentDay");
+currentDayEl.text(currentDay);
+
+
 //local storage for each timeslot
 var time9 = localStorage.getItem("slot9");
 $("#time9").val(time9);
@@ -73,4 +79,35 @@ $("#btn4").on("click", function(){
 $("#btn5").on("click", function(){
     var block5 = $("#time5").val();
     localStorage.setItem("slot5", block5);
+});
+
+//change blocks depending on time of day
+var currentTime = moment().hour();
+
+$(".time-block").each(function () {
+    var textBlock = $(this).attr("id");
+    // textBlock = textBlock.substring(1, textBlock.length);
+    textBlock = parseInt(textBlock);
+
+    if (textBlock < currentTime) {
+        $(this).addClass("past");
+        $(this).removeClass("future");
+        $(this).removeClass("present");
+    }else if (textBlock === currentTime) {
+        $(this).addClass("present");
+        $(this).removeClass("past");
+        $(this).removeClass("future");
+    }else{
+        $(this).addClass("future");
+        $(this).removeClass("past");
+        $(this).removeClass("present");
+    }
+});
+
+$(document).ready(function(){
+    setInterval(function(){
+        if (currentTime !=moment().hour()) {
+            location.reload();
+        }
+    },60 * 1000);
 });
